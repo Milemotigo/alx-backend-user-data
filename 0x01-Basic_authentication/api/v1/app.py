@@ -26,6 +26,7 @@ elif os.getenv('AUTH_TYPE') == 'basic_auth':
 
 @app.before_request
 def before_request():
+    """Checks if a user is authentucated"""
     if auth is None:
         return None
     excluded_paths = [
