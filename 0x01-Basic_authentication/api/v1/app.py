@@ -23,7 +23,7 @@ def not_found(error) -> str:
 
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def unauthorized():
-    abort(401)
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 if __name__ == "__main__":
