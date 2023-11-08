@@ -17,11 +17,12 @@ class Auth:
             return True
         if not path.endswith('/'):
             path = path + '/'
-        for p in excluded_paths:
-            if not p.endswith('/'):
-                p = p + '/'
-        if any(excluded_path == path for excluded_path in excluded_paths):
-            return False
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('*'):
+                if path.startswith(excluded_path[:-1]):
+                    return False
+            elif path == excluded_path:
+                return False
         return True
 
     def authorization_header(
