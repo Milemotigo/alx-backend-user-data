@@ -7,4 +7,5 @@ switch_value = os.getenv('SWITCH_VALUE')
 
 
 class SessioAuth(Auth):
+    """SessionAuth that inherits from Auth"""
     pass
