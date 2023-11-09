@@ -13,7 +13,7 @@ class SessionAuth(Auth):
         creates a Session ID for a user_id:
         - Return None if user_id is None
         - Return None if user_id is not a string
-        """ 
+        """
         if user_id is None:
             return None
         if not isinstance(user_id, str):
