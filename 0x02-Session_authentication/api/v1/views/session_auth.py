@@ -5,10 +5,12 @@ from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
 import os
+from typing import Tuple
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def get_user_login():
+def get_user_login() -> Tuple[str, int]:
+    """"""
     email = request.form.get('email')
     password = request.form.get('password')
 
