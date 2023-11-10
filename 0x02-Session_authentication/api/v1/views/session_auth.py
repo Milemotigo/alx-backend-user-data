@@ -10,7 +10,10 @@ from typing import Tuple
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def get_user_login() -> Tuple[str, int]:
-    """"""
+    """POST /api/v1/auth_session/login
+    Return:
+      - JSON representation of a User object.
+    """
     email = request.form.get('email')
     password = request.form.get('password')
 
