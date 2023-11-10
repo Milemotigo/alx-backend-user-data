@@ -27,6 +27,14 @@ elif os.getenv('AUTH_TYPE') == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 
+elif os.getenv('AUTH_TYPE') == 'session_exp_auth':
+    from api.v1.auth.session_db_auth import SessionExpAuth
+    auth = SessionExpAuth()    
+
+elif os.getenv('AUTH_TYPE') == 'session_db_auth':
+    from api.v1.auth.session_db_auth import SessionDBAuth
+    auth = SessionDBAuth()
+
 
 @app.before_request
 def before_request():
