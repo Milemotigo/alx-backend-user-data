@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """DB module.
 """
-from sqlalchemy import create_engine, tuple_
+from sqlalchemy import create_engine
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -40,18 +40,33 @@ class DB:
         self._session.commit()
         return new_user
 
+    # def find_user_by(self, **kwargs) -> User:
+    #     """Finds a user based on a set of filters.
+    #     """
+    #     fields, values = [], []
+    #     for key, value in kwargs.items():
+    #         if hasattr(User, key):
+    #             fields.append(getattr(User, key))
+    #             values.append(value)
+    #         else:
+    #             raise InvalidRequestError()
+    #     result = self._session.query(User).filter(
+    #         tuple_(*fields).in_([tuple(values)])).first()
+    #     if result is None:
+    #         raise NoResultFound()
+    #     return result
     def find_user_by(self, **kwargs) -> User:
         """Finds a user based on a set of filters.
         """
-        fields, values = [], []
+        query = None
         for key, value in kwargs.items():
             if hasattr(User, key):
-                fields.append(getattr(User, key))
-                values.append(value)
-            else:
-                raise InvalidRequestError()
-        result = self._session.query(User).filter(
-            tuple_(*fields).in_([tuple(values)])).first()
-        if result is None:
-            raise NoResultFound()
-        return result
+                filter = getattr(User, key) == value
+                query = self._session.query(User).filter(filter)
+                user = query.first()
+                if user:
+                    return user
+                else:
+                    raise NoResultFound()
+        if query is None:
+            raise InvalidRequestError()
