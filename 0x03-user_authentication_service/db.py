@@ -70,3 +70,16 @@ class DB:
                     raise NoResultFound()
         if query is None:
             raise InvalidRequestError()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """upadate users in the database"""
+        if user_id == User.id:
+            user_to_update = self.find_user_by(user_id = id)
+            if user_to_update is None:
+                raise ValueError()
+            for key, value in kwargs.items():
+                if hasattr(user_to_update, key):
+                    new_att = setattr(user_to_update, key, value)
+                    self._session.add(new_att)
+                    self._session.commit()
+        return None
