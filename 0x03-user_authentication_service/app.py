@@ -16,8 +16,8 @@ def msg():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", methods=["POST"])
-def users(email, password):
+@app.route("/users", methods=["POST"], , strict_slashes=False)
+def users() -> str:
     """add a user in this end point"""
     email = request.form.get(email)
     password = request.form.get(password)
@@ -25,7 +25,7 @@ def users(email, password):
     if user:
         return jsonify({"message": "email already registered"}), 404
     AUTH.register_user(email=email, password=password)
-    return ({"email": "f{email}", "message": "user created"}), 201
+    return ({"email": email, "message": "user created"}), 201
 
 
 if __name__ == "__main__":
