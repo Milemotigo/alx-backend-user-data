@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from auth import Auth
+
+
+AUTH = Auth()
 
 app = Flask(__name__)
 
@@ -10,6 +14,18 @@ def msg():
     """ return jsonify({"message": "Bienvenue"})
     """
     return jsonify({"message": "Bienvenue"})
+
+
+@app.route("/users", methods=["POST"])
+def users(email, password):
+    """add a user in this end point"""
+    email = request.form.get(email)
+    password = request.form.get(password)
+    user = AUTH._db.find_user_by(email)
+    if user:
+        return jsonify({"message": "email already registered"}), 404
+    AUTH.register_user(email=email, password=password)
+    return ({"email": "f{email}", "message": "user created"}), 201
 
 
 if __name__ == "__main__":
