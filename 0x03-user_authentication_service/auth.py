@@ -50,4 +50,3 @@ class Auth:
             return True
         else:
             return false
-
