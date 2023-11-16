@@ -17,20 +17,14 @@ def msg():
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def users() -> str:
-    """add a user in this end point"""
-    email = request.form.get(email)
-    password = request.form.get(password)
-    '''user = AUTH._db.find_user_by(email)
-    #if user:
-    #   return jsonify({"message": "email already registered"}), 404
-    #AUTH.register_user(email=email, password=password)
-    #return ({"email": email, "message": "user created"}), 201
-    '''
+def create_user() -> str:
+    """Add a user at this endpoint"""
     try:
+        email = request.form.get("email")
+        password = request.form.get("password")
         AUTH.register_user(email=email, password=password)
-        return ({"email": email, "message": "user created"}), 201
-    except ValueError():
+        return jsonify({"email": email, "message": "user created"}), 201
+    except ValueError:
         return jsonify({"message": "email already registered"}), 404
 
 
