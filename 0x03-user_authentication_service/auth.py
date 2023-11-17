@@ -87,7 +87,7 @@ class Auth:
         if user_id is None:
             return None
         self._db.update_user(user_id, session_id=None)
-    
+
     def get_reset_password_token(self, email: str) -> str:
         """16. Generate reset password token"""
         try:
@@ -107,5 +107,4 @@ class Auth:
             raise ValueError
         new_hashed = _hash_password(password)
         self.update_password(user, new_hashed, reset_token=None)
-
 
