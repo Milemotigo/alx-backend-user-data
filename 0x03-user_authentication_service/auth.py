@@ -109,4 +109,3 @@ class Auth:
             raise ValueError
         new_hashed = _hash_password(password)
         self.update_password(user, new_hashed, reset_token=None)
-
